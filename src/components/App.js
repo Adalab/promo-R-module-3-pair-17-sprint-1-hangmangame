@@ -4,6 +4,10 @@ import { useState } from 'react';
 function App() {
   const [numberOfErrors, setNumberOfErrors] = useState(0);
   const [lastLetter, setLastLetter] = useState([]);
+  const [word, setWord] = useState ('katakroker');
+  const [userLetters, setUserLetters] = useState ([]);
+
+
   const handleClickBtn = (ev) => {
     setNumberOfErrors(numberOfErrors + 1);
   };
@@ -15,7 +19,23 @@ function App() {
     } else {
       setLastLetter('');
     }
+
   };
+
+  /*const exists = userLetters.includes(letter.toLocaleLowerCase());
+  return (
+    <li key={index} className='letter'>
+      {exists ? letter : ''}
+    </li>}*/
+  const renderSolutionLetters = () => {
+    const wordLetters = word.split('');
+    return wordLetters.map((letter, index) => {
+      const exists = userLetters.includes(letter.toLocaleLowerCase());
+      return(<li key ={index} className='letter'>{}</li>
+      );
+    });
+  };
+
   return (
     <div className='page'>
       <header>
@@ -26,16 +46,7 @@ function App() {
           <div className='solution'>
             <h2 className='title'>Solución:</h2>
             <ul className='letters'>
-              <li className='letter'>k</li>
-              <li className='letter'>a</li>
-              <li className='letter'></li>
-              <li className='letter'>a</li>
-              <li className='letter'>k</li>
-              <li className='letter'>r</li>
-              <li className='letter'></li>
-              <li className='letter'>k</li>
-              <li className='letter'>e</li>
-              <li className='letter'>r</li>
+            {renderSolutionLetters()}
             </ul>
           </div>
           <div className='error'>
@@ -53,7 +64,7 @@ function App() {
               Escribe una letra:
             </label>
             <input
-              autocomplete='off'
+        
               className='form__input'
               maxLength='1'
               type='text'
